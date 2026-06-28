@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+<title>SurgRes Pro - מערכת ניהול מתמחים במחלקה לכירורגיה</title>
+<meta name="description" content="מערכת ניהול מתמחים מקצועית למחלקות כירורגיה - לוגבוק, משמרות, רוטציות, חתימה דיגיטלית ודוחות PDF">
+<meta name="keywords" content="כירורגיה, מתמחים, logbook, ניהול משמרות, רוטציות, רפואה, בית חולים">
+<meta name="author" content="SurgRes Pro">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="SurgRes Pro - מערכת ניהול מתמחים">
+<meta property="og:description" content="מערכת מקצועית למחלקות כירורגיה עם logbook חתום דיגיטלית, ניהול משמרות, רוטציות ודוחות PDF">
+<meta property="og:image" content="https://via.placeholder.com/1200x630/2563eb/ffffff?text=SurgRes+Pro">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SurgRes Pro">
+<meta name="twitter:description" content="מערכת ניהול מתמחים במחלקה לכירורגיה">
+
+<meta name="theme-color" content="#2563eb">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232563eb'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='white'%3E🏥%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --primary-light: #dbeafe;
+  --bg: #ffffff;
+  --bg-alt: #f8fafc;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  --border: #e2e8f0;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 10px 15px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.04);
+  --shadow-lg: 0 20px 25px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.04);
+  --shadow-xl: 0 25px 50px rgba(0,0,0,0.15);
+  --radius: 16px;
+  --gradient: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  --gradient-light: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Top notification bar */
+.top-bar {
+  background: var(--gradient);
+  color: white;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  position: relative;
+}
+.top-bar a { color: white; text-decoration: underline; font-weight: 600; }
+
+/* Navigation */
+.nav {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  position: sticky; top: 0;
+  z-index: 100;
+}
+.nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.logo {
+  display: flex; align-items: center; gap: 12px;
+  font-weight: 800; font-size: 20px;
+  color: var(--text);
+}
+.logo-icon {
+  width: 44px; height: 44px;
+  background: var(--gradient);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 22px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+.nav-links {
+  display: flex; gap: 28px; align-items: center;
+}
+.nav-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--primary); }
+.nav-cta {
+  background: var(--primary);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+.nav-cta:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+}
+
+/* Hero section */
+.hero {
+  position: relative;
+  padding: 80px 24px 100px;
+  text-align: center;
+  background: var(--bg);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -300px; left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  position: relative;
+}
+.hero-badge::before {
+  content: ''; width: 8px; height: 8px;
+  background: var(--success); border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+.hero h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #0f172a 0%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+.hero-subtitle {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--text-muted);
+  max-width: 720px;
+  margin: 0 auto 40px;
+  position: relative;
+}
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  margin-bottom: 48px;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+}
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+}
+.btn-secondary {
+  background: white;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover {
+  background: var(--bg-alt);
+  border-color: var(--primary);
+}
+.btn-large {
+  padding: 16px 32px;
+  font-size: 16px;
+}
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  margin-top: 32px;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat-num {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Device showcase */
+.devices {
+  padding: 60px 24px 100px;
+  background: var(--bg-alt);
+  position: relative;
+}
+.section-title {
+  text-align: center;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+.section-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 17px;
+  max-width: 640px;
+  margin: 0 auto 60px;
+}
+.devices-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+.device-card {
+  background: white;
+  border-radius: 24px;
+  padding: 40px 32px;
+  text-align: center;
+  border: 1px solid var(--border);
+  position: relative;
+  transition: all 0.3s;
+  overflow: hidden;
+}
+.device-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--gradient);
+  transform: translateY(-4px);
+  transition: transform 0.3s;
+}
+.device-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary);
+}
+.device-card:hover::before {
+  transform: translateY(0);
+}
+.device-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+.device-card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.device-card p {
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  font-size: 14px;
+  min-height: 42px;
+}
+.device-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--text);
+  color: white;
+  padding: 14px 24px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 12px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.device-btn:hover {
+  background: var(--primary);
+  transform: scale(1.02);
+}
+.device-btn-icon { font-size: 22px; }
+.device-instructions {
+  margin-top: 24px;
+  background: var(--bg-alt);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: start;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+.device-instructions strong { color: var(--text); }
+.device-instructions ol {
+  padding-inline-start: 20px;
+  margin-top: 8px;
+}
+.device-instructions li { margin-bottom: 4px; }
+
+/* Features section */
+.features {
+  padding: 100px 24px;
+  background: var(--bg);
+}
+.features-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+.feature {
+  padding: 32px 24px;
+  border-radius: 20px;
+  background: var(--bg-alt);
+  transition: all 0.3s;
+  border: 1px solid transparent;
+}
+.feature:hover {
+  background: white;
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+.feature-icon {
+  width: 56px; height: 56px;
+  background: var(--gradient);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
+}
+.feature h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.feature p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Screenshots */
+.screenshots {
+  padding: 100px 24px;
+  background: var(--bg-alt);
+  overflow: hidden;
+}
+.preview-box {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.preview-toolbar {
+  background: #f1f5f9;
+  padding: 12px 16px;
+  display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.preview-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+}
+.preview-dot.red { background: #ef4444; }
+.preview-dot.yellow { background: #f59e0b; }
+.preview-dot.green { background: #10b981; }
+.preview-url {
+  background: white;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-inline-start: 16px;
+  flex: 1;
+  max-width: 400px;
+  font-family: 'Courier New', monospace;
+}
+.preview-iframe {
+  width: 100%;
+  height: 600px;
+  border: 0;
+  background: white;
+}
+.preview-fallback {
+  padding: 80px 40px;
+  text-align: center;
+  background: var(--gradient-light);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.preview-fallback-icon {
+  font-size: 96px;
+  margin-bottom: 16px;
+}
+
+/* CTA section */
+.cta {
+  padding: 100px 24px;
+  background: var(--gradient);
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.cta::before {
+  content: '';
+  position: absolute;
+  top: -200px; left: -200px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+}
+.cta::after {
+  content: '';
+  position: absolute;
+  bottom: -200px; right: -200px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+}
+.cta-content {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.cta h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+.cta p {
+  font-size: 17px;
+  opacity: 0.95;
+  margin-bottom: 32px;
+}
+.cta .btn-primary {
+  background: white;
+  color: var(--primary);
+  font-weight: 700;
+  padding: 16px 36px;
+  font-size: 16px;
+}
+.cta .btn-primary:hover {
+  background: rgba(255,255,255,0.95);
+  transform: translateY(-3px) scale(1.03);
+}
+
+/* FAQ */
+.faq {
+  padding: 100px 24px;
+  background: var(--bg);
+}
+.faq-grid {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.faq-item {
+  background: var(--bg-alt);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+.faq-item.open {
+  background: white;
+  box-shadow: var(--shadow-md);
+}
+.faq-question {
+  width: 100%;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: start;
+  gap: 16px;
+}
+.faq-icon {
+  width: 28px; height: 28px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+  background: var(--primary);
+  color: white;
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  color: var(--text-muted);
+  padding: 0 24px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.faq-item.open .faq-answer {
+  max-height: 300px;
+  padding: 0 24px 24px;
+}
+
+/* Footer */
+.footer {
+  background: #0f172a;
+  color: #cbd5e1;
+  padding: 60px 24px 24px;
+}
+.footer-content {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 40px;
+}
+.footer-brand {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 16px;
+  color: white;
+  font-weight: 800;
+  font-size: 20px;
+}
+.footer-desc {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #94a3b8;
+  max-width: 320px;
+}
+.footer h5 {
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.footer ul { list-style: none; }
+.footer li { margin-bottom: 10px; }
+.footer a {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+.footer a:hover { color: white; }
+.footer-bottom {
+  border-top: 1px solid #1e293b;
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Modal */
+.modal {
+  position: fixed; inset: 0;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+.modal.active { display: flex; }
+.modal-content {
+  background: white;
+  border-radius: 20px;
+  max-width: 540px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  position: relative;
+  animation: modalIn 0.3s;
+}
+@keyframes modalIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.modal-close {
+  position: absolute;
+  top: 16px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--bg-alt);
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+}
+[dir="rtl"] .modal-close { left: 16px; }
+.modal-icon {
+  width: 64px; height: 64px;
+  background: var(--gradient);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-size: 32px;
+  margin: 0 auto 20px;
+}
+.modal h3 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.modal p {
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+.modal-step {
+  background: var(--bg-alt);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: start;
+}
+.modal-step-num {
+  width: 28px; height: 28px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.modal-step-body { flex: 1; font-size: 14px; }
+.modal-step-body strong { color: var(--text); display: block; margin-bottom: 4px; }
+
+/* Floating language switcher */
+.lang-switch {
+  position: fixed;
+  bottom: 20px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 10px 16px;
+  display: flex; gap: 8px;
+  box-shadow: var(--shadow-md);
+  z-index: 90;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 13px;
+  align-items: center;
+}
+[dir="rtl"] .lang-switch { left: 20px; }
+[dir="ltr"] .lang-switch { right: 20px; }
+.lang-switch:hover { box-shadow: var(--shadow-lg); }
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-cta { padding: 8px 16px; font-size: 13px; }
+  .hero { padding: 60px 20px 80px; }
+  .hero-stats { gap: 32px; }
+  .hero-stat-num { font-size: 28px; }
+  .devices, .features, .cta, .faq, .screenshots { padding: 60px 20px; }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .preview-iframe { height: 400px; }
+}
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- Top notification bar -->
+<div class="top-bar">
+  🎉 <strong>גרסה 2.0 זמינה!</strong> חתימה דיגיטלית, התראות חכמות, דוחות PDF ותמיכה מלאה ב-PWA
+</div>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-container">
+    <a href="#" class="logo">
+      <div class="logo-icon">🏥</div>
+      <span>SurgRes Pro</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features" class="nav-link">תכונות</a>
+      <a href="#download" class="nav-link">הורדה</a>
+      <a href="#faq" class="nav-link">שאלות נפוצות</a>
+      <a href="DEPLOYMENT_GUIDE.html" class="nav-link">מדריך הקמה</a>
+    </div>
+    <a href="app.html" class="nav-cta">🚀 הפעל עכשיו</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge">
+    <span>זמין עכשיו - גרסה 2.0</span>
+  </div>
+  <h1>
+    מערכת ניהול מתמחים<br>
+    למחלקת כירורגיה
+  </h1>
+  <p class="hero-subtitle">
+    Logbook חתום דיגיטלית, ניהול משמרות ורוטציות, מעקב מטופלים, דוחות PDF מקצועיים והתראות חכמות - הכל במערכת אחת פשוטה ומהירה
+  </p>
+  <div class="hero-actions">
+    <a href="app.html" class="btn btn-primary btn-large">
+      🚀 פתח את המערכת
+    </a>
+    <a href="#download" class="btn btn-secondary btn-large">
+      📲 הורד והתקן
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">100%</div>
+      <div class="hero-stat-label">חינמי וקוד פתוח</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">🔒</div>
+      <div class="hero-stat-label">נתונים שמורים מקומית</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">📱</div>
+      <div class="hero-stat-label">עובד בכל מכשיר</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">🌐</div>
+      <div class="hero-stat-label">עברית ואנגלית</div>
+    </div>
+  </div>
+</section>
+
+<!-- Devices download -->
+<section id="download" class="devices">
+  <h2 class="section-title">התקן בכל מכשיר</h2>
+  <p class="section-subtitle">
+    המערכת זמינה כאפליקציה (PWA) בכל המכשירים - מובייל, טאבלט ומחשב, ללא צורך בחנות אפליקציות
+  </p>
+  <div class="devices-grid">
+
+    <!-- iPhone / iPad -->
+    <div class="device-card">
+      <div class="device-icon">📱</div>
+      <h3>iPhone / iPad</h3>
+      <p>התקנה דרך Safari ישירות למסך הבית, ללא App Store</p>
+      <button class="device-btn" onclick="showInstall('ios')">
+        <span class="device-btn-icon">🍎</span>
+        <span>הוראות התקנה ל-iOS</span>
+      </button>
+      <a href="app.html" class="btn btn-secondary" style="width:100%; justify-content:center;">
+        🚀 פתח באפליקציה
+      </a>
+    </div>
+
+    <!-- Android -->
+    <div class="device-card">
+      <div class="device-icon">🤖</div>
+      <h3>Android</h3>
+      <p>התקנה ישירה דרך Chrome - חוויית אפליקציה מלאה</p>
+      <button class="device-btn" onclick="showInstall('android')">
+        <span class="device-btn-icon">📲</span>
+        <span>הוראות התקנה ל-Android</span>
+      </button>
+      <a href="app.html" class="btn btn-secondary" style="width:100%; justify-content:center;">
+        🚀 פתח באפליקציה
+      </a>
+    </div>
+
+    <!-- Desktop -->
+    <div class="device-card">
+      <div class="device-icon">💻</div>
+      <h3>מחשב (Windows/Mac)</h3>
+      <p>התקן כאפליקציה דסקטופ דרך Chrome, Edge או Safari</p>
+      <button class="device-btn" onclick="showInstall('desktop')">
+        <span class="device-btn-icon">🖥️</span>
+        <span>הוראות התקנה למחשב</span>
+      </button>
+      <a href="app.html" class="btn btn-secondary" style="width:100%; justify-content:center;">
+        🚀 פתח בדפדפן
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features" class="features">
+  <h2 class="section-title">כל מה שצריך במקום אחד</h2>
+  <p class="section-subtitle">
+    מערכת מקיפה שתוכננה במיוחד למחלקות כירורגיה - מבוססת על דרישות אמיתיות של מתמחים ומנהלי מחלקות
+  </p>
+  <div class="features-grid">
+    <div class="feature">
+      <div class="feature-icon">🔪</div>
+      <h4>Logbook כירורגי</h4>
+      <p>תיעוד כל הניתוחים עם תפקיד (מנתח/עוזר/צופה), משך, סיבוכים וחתימה דיגיטלית מקצועית</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🗓️</div>
+      <h4>ניהול משמרות</h4>
+      <p>לוח שנה חודשי עם 5 סוגי משמרות - חדר ניתוח, מיון, שבת, לילה ויום, צבעוני ונוח</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">✍️</div>
+      <h4>חתימה דיגיטלית</h4>
+      <p>חתימה במגע במובייל או בעכבר במחשב, נשמרת עם תאריך, זמן ופרטי החותם</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">📄</div>
+      <h4>דוחות PDF</h4>
+      <p>5 סוגי דוחות מקצועיים - logbook, מתמחה, חודשי, משמרות ומערכת מלא</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔄</div>
+      <h4>ניהול רוטציות</h4>
+      <p>מעקב אחרי רוטציות במחלקות אחרות עם תצוגת Gantt ויזואלית ברורה</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🎓</div>
+      <h4>הרצאות ולמידה</h4>
+      <p>M&M, Journal Club, Grand Rounds, מצגות וקבצים, רישום נוכחות, ולוח משימות Kanban</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔔</div>
+      <h4>התראות חכמות</h4>
+      <p>תזכורות אוטומטיות למשמרות, משימות, הרצאות ורוטציות שמסתיימות</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🛠️</div>
+      <h4>פאנל ניהול</h4>
+      <p>בונה טבלאות, טפסים וגרפים דינמיים - התאם את המערכת לצרכים שלך ללא קוד</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔐</div>
+      <h4>3 רמות הרשאה</h4>
+      <p>מנהל מחלקה, מתמחה בכיר ומתמחה - כל אחד רואה רק את מה שהוא צריך</p>
+    </div>
+  </div>
+</section>
+
+<!-- Preview -->
+<section class="screenshots">
+  <h2 class="section-title">תראה איך זה נראה</h2>
+  <p class="section-subtitle">ממשק נקי, מודרני וקל לשימוש - מותאם לעבודה במחלקה</p>
+  <div class="preview-box">
+    <div class="preview-toolbar">
+      <div class="preview-dot red"></div>
+      <div class="preview-dot yellow"></div>
+      <div class="preview-dot green"></div>
+      <div class="preview-url" id="previewUrl">app.html - SurgRes Pro</div>
+    </div>
+    <iframe src="app.html" class="preview-iframe" loading="lazy" title="SurgRes Pro Preview"
+      onerror="this.style.display='none';document.getElementById('previewFallback').style.display='flex'"></iframe>
+    <div id="previewFallback" class="preview-fallback" style="display:none">
+      <div class="preview-fallback-icon">🏥</div>
+      <h3 style="font-size: 22px; margin-bottom: 8px;">SurgRes Pro</h3>
+      <p style="color: var(--text-muted); margin-bottom: 16px;">לחץ על הכפתור למטה לפתיחת המערכת</p>
+      <a href="app.html" class="btn btn-primary">🚀 פתח את המערכת</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-content">
+    <h2>מוכן להתחיל?</h2>
+    <p>המערכת חינמית, פתוחה לכולם, ועובדת מיד - בלי הרשמה, בלי שרת, בלי קוד.</p>
+    <a href="app.html" class="btn btn-primary btn-large">
+      🚀 פתח את SurgRes Pro
+    </a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq">
+  <h2 class="section-title">שאלות נפוצות</h2>
+  <p class="section-subtitle">תשובות לשאלות שאנחנו מקבלים הכי הרבה</p>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>האם המערכת חינמית?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        כן! המערכת חינמית לחלוטין וקוד פתוח. אין מנויים, אין הגבלות, אין פרסומות. אפשר להוריד את הקוד מ-GitHub ולהריץ באופן עצמאי.
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>איפה הנתונים שלי נשמרים?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        כל הנתונים נשמרים ב-LocalStorage של הדפדפן שלך - <strong>אצלך בלבד, על המכשיר שלך</strong>. שום מידע לא נשלח לשרת חיצוני. זה מבטיח פרטיות מלאה, במיוחד חשוב במידע רפואי. הגיבוי מתבצע באמצעות יצוא קובץ JSON.
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>האם זה עובד אופליין?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        כן! אחרי שמתקינים את ה-PWA, האפליקציה עובדת לחלוטין אופליין. ניתן לפתוח אותה ולעבוד גם בלי אינטרנט - מושלם לעבודה בבתי חולים עם קליטה מוגבלת.
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>איך מתקינים על iPhone?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        פותחים את האתר ב-Safari (חובה Safari!), לוחצים על כפתור השיתוף 📤, וגוללים למטה ל"Add to Home Screen" (הוסף למסך הבית). זהו! האפליקציה מופיעה במסך הבית כמו כל אפליקציה אחרת.
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>איך אני יכול להעלות לדומיין שלי?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        כתבנו לכם <a href="DEPLOYMENT_GUIDE.html" style="color: var(--primary); font-weight: 600;">מדריך מפורט בעברית</a> להעלאה ל-GitHub Pages וחיבור לדומיין משלכם, כולל איך לקנות דומיין והוראות שלב-אחר-שלב.
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>האם זה תואם לדרישות פרטיות רפואיות?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        המערכת תוכננה עם פרטיות בחשבון: כל הנתונים נשמרים מקומית בדפדפן, יש 3 רמות הרשאה, מודול המטופלים דורש שימוש בנתונים אנונימיים בלבד (קודי PT-001 וכו'), ויש אזהרות מובנות. עם זאת, מומלץ לבדוק התאמה לתקנות המקומיות (HIPAA, GDPR וכו') לפני שימוש בנתונים אמיתיים.
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>האם ניתן להוסיף שדות מותאמים אישית?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        בהחלט! בפאנל הניהול יש בונה טבלאות דינמי - אפשר ליצור טבלאות חדשות עם שדות מותאמים, בונה טפסים, ובונה גרפים. הכל ללא צורך בכתיבת קוד.
+      </div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>איך עושים גיבוי?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        בפאנל הניהול לחצן "יצוא כל הנתונים" יוצר קובץ JSON עם כל המידע. שמרו אותו במקום בטוח. לשחזור - לחצו "ייבוא נתונים" וטענו את הקובץ. מומלץ לעשות גיבוי שבועי לכל הפחות.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <div class="logo-icon">🏥</div>
+          <span>SurgRes Pro</span>
+        </div>
+        <p class="footer-desc">
+          מערכת ניהול מתמחים מקצועית למחלקות כירורגיה. חינמית, קוד פתוח, ועובדת על כל מכשיר.
+        </p>
+      </div>
+      <div>
+        <h5>המוצר</h5>
+        <ul>
+          <li><a href="#features">תכונות</a></li>
+          <li><a href="#download">הורדה</a></li>
+          <li><a href="app.html">פתח עכשיו</a></li>
+          <li><a href="#faq">שאלות נפוצות</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>מדריכים</h5>
+        <ul>
+          <li><a href="DEPLOYMENT_GUIDE.html">העלאה ל-GitHub</a></li>
+          <li><a href="DEPLOYMENT_GUIDE.html#domain">חיבור דומיין</a></li>
+          <li><a href="DEPLOYMENT_GUIDE.html#install">התקנה במובייל</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>קישורים</h5>
+        <ul>
+          <li><a href="https://github.com" target="_blank">GitHub</a></li>
+          <li><a href="mailto:contact@example.com">צור קשר</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 SurgRes Pro. כל הזכויות שמורות.</div>
+      <div>נבנה באהבה לקהילה הרפואית 🩺</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Language switcher -->
+<button class="lang-switch" onclick="toggleLang()">
+  🌐 <span id="langText">English</span>
+</button>
+
+<!-- Install Modal -->
+<div class="modal" id="installModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-icon" id="modalIcon">📱</div>
+    <h3 id="modalTitle">הוראות התקנה</h3>
+    <p id="modalSubtitle">עקוב אחר השלבים להתקנה במכשיר שלך</p>
+    <div id="modalSteps"></div>
+    <a href="app.html" class="btn btn-primary" style="width:100%; justify-content:center; margin-top: 16px;">
+      🚀 פתח עכשיו את המערכת
+    </a>
+  </div>
+</div>
+
+<script>
+// FAQ toggle
+function toggleFAQ(btn) {
+  const item = btn.parentElement;
+  const allOpen = document.querySelectorAll('.faq-item.open');
+  allOpen.forEach(i => { if (i !== item) i.classList.remove('open'); });
+  item.classList.toggle('open');
+}
+
+// Install modal
+const installSteps = {
+  ios: {
+    icon: '🍎',
+    title: 'התקנה ב-iPhone / iPad',
+    subtitle: 'דרך Safari בלבד (לא Chrome) - 3 שלבים פשוטים',
+    steps: [
+      { title: 'פתח ב-Safari', desc: 'גש לכתובת האתר ב-Safari (חייב Safari, לא Chrome)' },
+      { title: 'לחץ על כפתור השיתוף', desc: 'הכפתור עם החץ למעלה 📤 בתחתית המסך' },
+      { title: 'בחר "Add to Home Screen"', desc: 'גלול למטה ובחר "הוסף למסך הבית" (Add to Home Screen)' },
+      { title: 'לחץ "הוסף"', desc: 'בחר שם לאפליקציה ולחץ "Add" - האייקון מופיע במסך הבית!' }
+    ]
+  },
+  android: {
+    icon: '🤖',
+    title: 'התקנה ב-Android',
+    subtitle: 'דרך Chrome - לוחצים על הכפתור הצף',
+    steps: [
+      { title: 'פתח ב-Chrome', desc: 'גש לאתר ב-Chrome browser' },
+      { title: 'באנר התקנה אוטומטי', desc: 'יופיע באנר "התקן את האפליקציה" - לחץ עליו' },
+      { title: 'או דרך התפריט', desc: 'לחץ על 3 הנקודות ⋮ → "Install app" / "Add to Home screen"' },
+      { title: 'אשר התקנה', desc: 'לחץ "התקן" - האפליקציה מופיעה במגירת האפליקציות' }
+    ]
+  },
+  desktop: {
+    icon: '💻',
+    title: 'התקנה במחשב',
+    subtitle: 'דרך Chrome, Edge או Safari',
+    steps: [
+      { title: 'פתח את האתר', desc: 'ב-Chrome, Edge או Safari (גרסה עדכנית)' },
+      { title: 'אייקון התקנה בשורת הכתובת', desc: 'מימין לשורת הכתובת יופיע אייקון של מסך עם חץ ⬇️' },
+      { title: 'לחץ "Install"', desc: 'או דרך תפריט הדפדפן ⋮ → "Install SurgRes Pro"' },
+      { title: 'אישור והפעלה', desc: 'האפליקציה תיפתח בחלון נפרד, ואייקון יתווסף לדסקטופ ו-Start Menu' }
+    ]
+  }
+};
+
+function showInstall(device) {
+  const data = installSteps[device];
+  document.getElementById('modalIcon').textContent = data.icon;
+  document.getElementById('modalTitle').textContent = data.title;
+  document.getElementById('modalSubtitle').textContent = data.subtitle;
+  document.getElementById('modalSteps').innerHTML = data.steps.map((s, i) => `
+    <div class="modal-step">
+      <div class="modal-step-num">${i + 1}</div>
+      <div class="modal-step-body">
+        <strong>${s.title}</strong>
+        ${s.desc}
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('installModal').classList.add('active');
+}
+function closeModal() {
+  document.getElementById('installModal').classList.remove('active');
+}
+document.getElementById('installModal').addEventListener('click', (e) => {
+  if (e.target.id === 'installModal') closeModal();
+});
+
+// Language toggle
+let currentLang = 'he';
+function toggleLang() {
+  currentLang = currentLang === 'he' ? 'en' : 'he';
+  document.getElementById('langText').textContent = currentLang === 'he' ? 'English' : 'עברית';
+  // For demo - in production add full i18n
+  if (currentLang === 'en') {
+    alert('English version coming soon. Click OK to continue in Hebrew.');
+    currentLang = 'he';
+    document.getElementById('langText').textContent = 'English';
+  }
+}
+
+// Detect device and auto-show appropriate install button
+function detectDevice() {
+  const ua = navigator.userAgent;
+  if (/iPad|iPhone|iPod/.test(ua)) return 'ios';
+  if (/Android/.test(ua)) return 'android';
+  return 'desktop';
+}
+
+// Subtle smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>

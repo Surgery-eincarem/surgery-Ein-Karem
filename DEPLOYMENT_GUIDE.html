@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מדריך הקמה - SurgRes Pro | GitHub Pages + דומיין</title>
+<meta name="description" content="מדריך מפורט שלב-אחר-שלב להעלאת SurgRes Pro ל-GitHub Pages וחיבור דומיין משלך - בעברית">
+<meta name="theme-color" content="#2563eb">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232563eb'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='white'%3E📖%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --primary-light: #dbeafe;
+  --bg: #ffffff;
+  --bg-alt: #f8fafc;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  --border: #e2e8f0;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --code-bg: #0f172a;
+  --code-text: #e2e8f0;
+  --gradient: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Heebo', sans-serif;
+  background: var(--bg-alt);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* Header */
+.header {
+  background: var(--gradient);
+  color: white;
+  padding: 60px 24px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::before, .header::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  pointer-events: none;
+}
+.header::before {
+  width: 400px; height: 400px;
+  top: -200px; right: -100px;
+}
+.header::after {
+  width: 300px; height: 300px;
+  bottom: -150px; left: -50px;
+}
+.header-content {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 24px;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+.back-link:hover { background: rgba(255,255,255,0.25); }
+.header h1 {
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 900;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.header p {
+  font-size: 17px;
+  opacity: 0.95;
+  margin-bottom: 24px;
+}
+.header-meta {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+.header-meta span {
+  background: rgba(255,255,255,0.15);
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+/* Layout with TOC */
+.layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 40px;
+}
+
+/* TOC */
+.toc {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+.toc h3 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.toc ul { list-style: none; }
+.toc > ul > li {
+  margin-bottom: 6px;
+}
+.toc a {
+  display: block;
+  padding: 8px 12px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.15s;
+  border-inline-start: 3px solid transparent;
+}
+.toc a:hover {
+  background: var(--bg-alt);
+  color: var(--primary);
+}
+.toc a.active {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  border-color: var(--primary);
+  font-weight: 600;
+}
+
+/* Main content */
+.content {
+  background: white;
+  border-radius: 16px;
+  padding: 48px;
+  border: 1px solid var(--border);
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 48px 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+  letter-spacing: -0.02em;
+  scroll-margin-top: 24px;
+}
+h2:first-of-type { margin-top: 0; }
+h2 .num {
+  display: inline-flex;
+  width: 36px; height: 36px;
+  background: var(--gradient);
+  color: white;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-inline-end: 12px;
+  font-size: 18px;
+  vertical-align: middle;
+}
+h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 32px 0 12px;
+  color: var(--text);
+}
+h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 20px 0 8px;
+}
+p { margin-bottom: 16px; }
+ul, ol { margin-bottom: 16px; padding-inline-start: 24px; }
+li { margin-bottom: 6px; }
+
+/* Code blocks */
+code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--primary-dark);
+  direction: ltr;
+  display: inline-block;
+}
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 20px;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 16px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  direction: ltr;
+  position: relative;
+}
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+}
+pre::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  letter-spacing: 0.05em;
+}
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.copy-btn:hover { background: rgba(255,255,255,0.2); }
+
+/* Callouts */
+.callout {
+  border-inline-start: 4px solid;
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-size: 14px;
+}
+.callout strong { font-weight: 700; }
+.callout-info {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+}
+.callout-success {
+  background: #d1fae5;
+  border-color: var(--success);
+  color: #065f46;
+}
+.callout-warning {
+  background: #fef3c7;
+  border-color: var(--warning);
+  color: #92400e;
+}
+.callout-danger {
+  background: #fee2e2;
+  border-color: var(--danger);
+  color: #991b1b;
+}
+.callout-tip {
+  background: #ede9fe;
+  border-color: #8b5cf6;
+  color: #5b21b6;
+}
+
+/* Steps */
+.step {
+  background: var(--bg-alt);
+  border-radius: 14px;
+  padding: 24px;
+  margin: 20px 0;
+  border-inline-start: 4px solid var(--primary);
+  position: relative;
+}
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.step-number {
+  width: 36px; height: 36px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.step-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Visual command */
+.command-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  direction: ltr;
+  margin: 12px 0;
+}
+.command-prompt {
+  color: var(--success);
+  font-weight: 700;
+}
+
+/* Cards */
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.option-card {
+  background: var(--bg-alt);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  transition: all 0.2s;
+}
+.option-card.recommended {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  position: relative;
+}
+.option-card.recommended::before {
+  content: '⭐ מומלץ';
+  position: absolute;
+  top: -10px;
+  background: var(--primary);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+[dir="rtl"] .option-card.recommended::before { right: 16px; }
+.option-card h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.option-card p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+.option-card .price {
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  border: 1px solid var(--border);
+}
+th {
+  background: var(--bg-alt);
+  text-align: start;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+}
+tr:last-child td { border-bottom: none; }
+tr:hover { background: var(--bg-alt); }
+
+/* Image placeholder */
+.screenshot {
+  background: var(--bg-alt);
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  margin: 20px 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.screenshot-icon { font-size: 48px; margin-bottom: 12px; }
+
+/* Final summary */
+.summary {
+  background: var(--gradient);
+  color: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  margin-top: 60px;
+}
+.summary h2 {
+  color: white;
+  border: none;
+  margin-bottom: 16px;
+  padding: 0;
+}
+.summary p { opacity: 0.95; margin-bottom: 24px; }
+.summary .btn {
+  background: white;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px;
+  background: var(--primary);
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.2s;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+.btn-secondary {
+  background: white;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover { background: var(--bg-alt); }
+
+a { color: var(--primary); text-decoration: none; font-weight: 500; }
+a:hover { text-decoration: underline; }
+
+/* Mobile */
+@media (max-width: 1024px) {
+  .layout { grid-template-columns: 1fr; }
+  .toc {
+    position: static;
+    max-height: none;
+  }
+  .toc > ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 4px;
+  }
+}
+@media (max-width: 640px) {
+  .content { padding: 24px; }
+  .step { padding: 16px; }
+  h2 { font-size: 22px; }
+  h2 .num { width: 28px; height: 28px; font-size: 14px; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-content">
+    <a href="index.html" class="back-link">
+      <span>→</span> חזרה לדף הבית
+    </a>
+    <h1>📖 מדריך הקמה מלא</h1>
+    <p>איך להעלות את SurgRes Pro ל-GitHub Pages ולחבר לדומיין משלך</p>
+    <div class="header-meta">
+      <span>⏱️ זמן הקמה: ~30 דקות</span>
+      <span>💰 עלות: 0₪ - 60₪/שנה</span>
+      <span>🎯 רמה: למתחילים</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- Table of contents -->
+  <nav class="toc">
+    <h3>תוכן עניינים</h3>
+    <ul>
+      <li><a href="#intro" class="active">📋 הקדמה</a></li>
+      <li><a href="#prerequisites">⚙️ הכנות מקדימות</a></li>
+      <li><a href="#github-account">1️⃣ פתיחת חשבון GitHub</a></li>
+      <li><a href="#create-repo">2️⃣ יצירת Repository</a></li>
+      <li><a href="#upload-files">3️⃣ העלאת הקבצים</a></li>
+      <li><a href="#enable-pages">4️⃣ הפעלת GitHub Pages</a></li>
+      <li><a href="#test-site">5️⃣ בדיקת האתר</a></li>
+      <li><a href="#domain">6️⃣ קניית דומיין</a></li>
+      <li><a href="#dns">7️⃣ הגדרת DNS</a></li>
+      <li><a href="#https">8️⃣ הפעלת HTTPS</a></li>
+      <li><a href="#install">9️⃣ התקנה כ-PWA</a></li>
+      <li><a href="#updates">🔄 עדכון האפליקציה</a></li>
+      <li><a href="#troubleshooting">🆘 פתרון בעיות</a></li>
+      <li><a href="#summary">✅ סיכום</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main content -->
+  <main class="content">
+
+<h2 id="intro">📋 הקדמה</h2>
+
+<p>שלום! המדריך הזה ילווה אותך שלב אחר שלב בהעלאת מערכת <strong>SurgRes Pro</strong> לאוויר, כך שכל המתמחים במחלקה יוכלו לגשת אליה מהמובייל, מהמחשב או מהטאבלט - מכל מקום בעולם.</p>
+
+<div class="callout callout-info">
+  <strong>💡 מה זה GitHub Pages?</strong><br>
+  שירות חינמי של GitHub שמאפשר לאחסן אתרים סטטיים (HTML/CSS/JS) על שרתי GitHub. זה מושלם ל-SurgRes Pro כי המערכת היא קובץ HTML אחד שלא צריך שרת.
+</div>
+
+<h3>מה תקבל בסוף המדריך?</h3>
+<ul>
+  <li>✅ <strong>אתר חי</strong> שזמין מכל מקום באינטרנט</li>
+  <li>✅ <strong>HTTPS אוטומטי</strong> - מאובטח לחלוטין</li>
+  <li>✅ <strong>דומיין משלך</strong> (לדוגמה: <code>surgres.org.il</code>)</li>
+  <li>✅ <strong>אפליקציה במובייל</strong> - כל המתמחים יכולים להתקין</li>
+  <li>✅ <strong>עדכונים קלים</strong> - דחיפת שינויים בכמה לחיצות</li>
+  <li>✅ <strong>גיבוי אוטומטי</strong> - הקוד שמור ב-GitHub לתמיד</li>
+</ul>
+
+<h3>טבלת עלויות מסכמת</h3>
+<table>
+  <thead>
+    <tr><th>פריט</th><th>עלות</th><th>הערות</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>GitHub Pages (אחסון)</td><td><strong style="color:var(--success)">חינם</strong></td><td>ללא הגבלת תעבורה</td></tr>
+    <tr><td>HTTPS / SSL</td><td><strong style="color:var(--success)">חינם</strong></td><td>אוטומטי דרך Let's Encrypt</td></tr>
+    <tr><td>דומיין .com</td><td>~$10-15/שנה</td><td>אופציונלי</td></tr>
+    <tr><td>דומיין .co.il / .org.il</td><td>~₪60-80/שנה</td><td>אופציונלי - דומיין ישראלי</td></tr>
+    <tr><td>דומיין מ-Cloudflare</td><td>במחיר עלות</td><td>הזול ביותר</td></tr>
+  </tbody>
+</table>
+
+<div class="callout callout-tip">
+  <strong>🎯 רוצה לדלג ולהתחיל מהר?</strong> אפשר לסיים את שלבים 1-5 בלבד (~10 דקות) ולקבל אתר חי עם כתובת כמו <code>yourname.github.io/surgres</code>. הדומיין המותאם הוא רק עניין של מיתוג.
+</div>
+
+<h2 id="prerequisites"><span class="num">⚙️</span> הכנות מקדימות</h2>
+
+<p>לפני שמתחילים, צריך שלושה דברים בלבד:</p>
+
+<ol>
+  <li>💻 <strong>מחשב</strong> עם דפדפן (Chrome / Firefox / Edge / Safari)</li>
+  <li>📧 <strong>כתובת אימייל</strong> פעילה (לפתיחת חשבון GitHub)</li>
+  <li>📁 <strong>הקבצים של SurgRes Pro</strong> במחשב:
+    <ul>
+      <li><code>index.html</code> - דף הנחיתה (האתר הראשי)</li>
+      <li><code>app.html</code> - המערכת עצמה</li>
+      <li><code>DEPLOYMENT_GUIDE.html</code> - המדריך הזה</li>
+      <li><code>manifest.json</code> - הגדרות PWA</li>
+      <li><code>service-worker.js</code> - לעבודה אופליין (אופציונלי)</li>
+    </ul>
+  </li>
+</ol>
+
+<div class="callout callout-warning">
+  <strong>⚠️ חשוב:</strong> אם עוד לא הורדת את הקבצים, לחץ על <a href="index.html">דף הבית</a> והורד אותם לתיקייה אחת במחשב.
+</div>
+
+<h2 id="github-account"><span class="num">1</span>פתיחת חשבון GitHub</h2>
+
+<p>GitHub זו פלטפורמה לאחסון קוד (חינמית). אם כבר יש לך חשבון - דלג לשלב הבא.</p>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">1.1</div>
+    <div class="step-title">גש לאתר GitHub</div>
+  </div>
+  <p>פתח דפדפן ועבור לכתובת:</p>
+  <pre data-lang="URL"><code>https://github.com/signup</code></pre>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">1.2</div>
+    <div class="step-title">מילוי פרטים</div>
+  </div>
+  <ul>
+    <li><strong>Email:</strong> כתובת המייל שלך</li>
+    <li><strong>Password:</strong> סיסמה חזקה (לפחות 8 תווים, אותיות גדולות, מספרים)</li>
+    <li><strong>Username:</strong> שם משתמש - <strong>חשוב!</strong> זה יופיע בכתובת האתר שלך
+      <ul>
+        <li>דוגמאות טובות: <code>dr-cohen</code>, <code>surgres-hospital</code>, <code>jerusalem-surgery</code></li>
+        <li>רק אותיות באנגלית, מספרים ומקפים. ללא רווחים</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">1.3</div>
+    <div class="step-title">אימות וסיום</div>
+  </div>
+  <p>GitHub ישלח קוד אימות למייל - הזן אותו. בחר את התכנית <strong>Free</strong> (חינמית) - היא כוללת הכל מה שצריך.</p>
+</div>
+
+<div class="callout callout-success">
+  <strong>✅ הצלחה!</strong> יש לך עכשיו חשבון GitHub. רשום את שם המשתמש שלך - תצטרך אותו בהמשך.
+</div>
+
+<h2 id="create-repo"><span class="num">2</span>יצירת Repository (מאגר קוד)</h2>
+
+<p>Repository (או "ריפו" בקיצור) זה תיקייה ב-GitHub שמכילה את כל הקבצים של הפרויקט.</p>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">2.1</div>
+    <div class="step-title">לחץ על "New Repository"</div>
+  </div>
+  <p>אחרי שאתה מחובר ל-GitHub:</p>
+  <ul>
+    <li>לחץ על הסימן <strong>"+"</strong> בפינה הימנית-עליונה (LTR: שמאלית-עליונה)</li>
+    <li>בחר <strong>"New repository"</strong></li>
+  </ul>
+  <p>או גש ישירות לכתובת:</p>
+  <pre data-lang="URL"><code>https://github.com/new</code></pre>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">2.2</div>
+    <div class="step-title">מילוי פרטי הריפו</div>
+  </div>
+  <ul>
+    <li><strong>Repository name:</strong> <code>surgres-pro</code> (או שם אחר שתבחר)</li>
+    <li><strong>Description:</strong> <code>Surgery Residents Management System</code> (אופציונלי)</li>
+    <li><strong>Public / Private:</strong> בחר <strong>Public</strong>
+      <div class="callout callout-info" style="margin-top:8px;">
+        <strong>💡 למה Public?</strong> כי GitHub Pages לחשבונות חינמיים עובד רק עם ריפו ציבורי. אל דאגה - הקוד הוא רק קוד האפליקציה, <strong>הנתונים של המתמחים נשמרים מקומית בדפדפן ולא ב-GitHub</strong>.
+      </div>
+    </li>
+    <li><strong>Initialize with README:</strong> ✅ סמן (מאתחל את הריפו)</li>
+    <li>לחץ <strong>"Create repository"</strong></li>
+  </ul>
+</div>
+
+<div class="callout callout-success">
+  <strong>🎉 הריפו נוצר!</strong> אתה אמור לראות עכשיו עמוד עם כותרת כמו: <br>
+  <code style="margin-top:8px;">your-username/surgres-pro</code>
+</div>
+
+<h2 id="upload-files"><span class="num">3</span>העלאת הקבצים</h2>
+
+<p>עכשיו נעלה את כל הקבצים של SurgRes Pro. יש 3 דרכים - אנחנו נשתמש בקלה ביותר.</p>
+
+<h3>שיטה א': גרירה והעלאה (Drag & Drop) - מומלץ למתחילים</h3>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">3.1</div>
+    <div class="step-title">לחץ "Add file" → "Upload files"</div>
+  </div>
+  <p>בעמוד הריפו, חפש את הכפתור <strong>"Add file"</strong> (בשורה מעל רשימת הקבצים), לחץ עליו ובחר <strong>"Upload files"</strong>.</p>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">3.2</div>
+    <div class="step-title">גרור את הקבצים</div>
+  </div>
+  <p>מהמחשב שלך, גרור את הקבצים הבאים לאזור הגרירה בעמוד:</p>
+  <ul>
+    <li>📄 <code>index.html</code></li>
+    <li>📄 <code>app.html</code></li>
+    <li>📄 <code>DEPLOYMENT_GUIDE.html</code></li>
+    <li>📄 <code>manifest.json</code></li>
+    <li>📄 <code>service-worker.js</code> (אם יש)</li>
+  </ul>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">3.3</div>
+    <div class="step-title">שמירה (Commit)</div>
+  </div>
+  <p>בתחתית הדף:</p>
+  <ul>
+    <li><strong>Commit message:</strong> <code>Initial upload of SurgRes Pro</code></li>
+    <li>השאר את ברירת המחדל <strong>"Commit directly to the main branch"</strong></li>
+    <li>לחץ <strong>"Commit changes"</strong></li>
+  </ul>
+</div>
+
+<div class="callout callout-info">
+  <strong>📌 Commit מה זה?</strong> Commit = "שמירת גרסה" של הקוד. כל שינוי שתעשה בעתיד יישמר כ-commit נפרד עם תאריך והערה, כדי שתוכל לחזור אחורה אם תרצה.
+</div>
+
+<h3>שיטה ב': Git Command Line (למתקדמים)</h3>
+<p>אם אתה מכיר Git, אפשר להעלות גם דרך הטרמינל:</p>
+<pre data-lang="bash"><button class="copy-btn" onclick="copyCode(this)">העתק</button><code>git clone https://github.com/your-username/surgres-pro.git
+cd surgres-pro
+# העתק את הקבצים לתיקייה הזו
+git add .
+git commit -m "Initial upload"
+git push origin main</code></pre>
+
+<h2 id="enable-pages"><span class="num">4</span>הפעלת GitHub Pages</h2>
+
+<p>זה הקסם! עכשיו נהפוך את הריפו לאתר חי באינטרנט.</p>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">4.1</div>
+    <div class="step-title">גש להגדרות (Settings)</div>
+  </div>
+  <p>בעמוד הריפו, לחץ על הטאב <strong>"Settings"</strong> (גלגל שיניים ⚙️) שנמצא בצד ימין של שורת הטאבים (Code, Issues, Pull requests... Settings).</p>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">4.2</div>
+    <div class="step-title">היכנס ל-"Pages"</div>
+  </div>
+  <p>בתפריט הצדדי (Sidebar) בצד שמאל, גלול ומצא <strong>"Pages"</strong> תחת הקטגוריה "Code and automation".</p>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">4.3</div>
+    <div class="step-title">בחר את Branch ה-source</div>
+  </div>
+  <p>תחת הכותרת <strong>"Build and deployment"</strong>:</p>
+  <ul>
+    <li><strong>Source:</strong> בחר <code>Deploy from a branch</code></li>
+    <li><strong>Branch:</strong>
+      <ul>
+        <li>בחר <code>main</code> מהרשימה</li>
+        <li>השאר <code>/ (root)</code></li>
+      </ul>
+    </li>
+    <li>לחץ <strong>"Save"</strong></li>
+  </ul>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">4.4</div>
+    <div class="step-title">המתן כ-1-2 דקות</div>
+  </div>
+  <p>GitHub עכשיו בונה את האתר שלך. תוכל לראות את ההתקדמות תחת הטאב <strong>"Actions"</strong>.</p>
+  <p>אחרי 1-2 דקות, רענן את עמוד <strong>Settings → Pages</strong>. תראה הודעה בירוק:</p>
+  <pre data-lang="success"><code>✅ Your site is live at https://your-username.github.io/surgres-pro/</code></pre>
+</div>
+
+<div class="callout callout-success">
+  <strong>🎉 מזל טוב! האתר חי!</strong><br>
+  הכתובת הזמנית שלך היא: <code style="margin-top:8px;">https://[שם-המשתמש].github.io/surgres-pro/</code>
+</div>
+
+<h2 id="test-site"><span class="num">5</span>בדיקת האתר</h2>
+
+<p>פתח את הכתובת שקיבלת בדפדפן. אתה אמור לראות את דף הנחיתה של SurgRes Pro.</p>
+
+<h3>צ'ק ליסט בדיקות חיוניות:</h3>
+<ul>
+  <li>✅ דף הנחיתה (index.html) נטען</li>
+  <li>✅ לחיצה על "פתח את המערכת" פותחת את האפליקציה (app.html)</li>
+  <li>✅ אפשר להתחבר עם <code>admin@surgery.com</code> / <code>admin123</code></li>
+  <li>✅ הדשבורד מציג סטטיסטיקות וגרפים</li>
+  <li>✅ לוח השנה והטבלאות מציגים נתונים לדוגמה</li>
+  <li>✅ מדריך ההקמה (DEPLOYMENT_GUIDE.html) פתיח מ-Footer</li>
+</ul>
+
+<div class="callout callout-warning">
+  <strong>⚠️ אם משהו לא עובד:</strong>
+  <ol style="margin-top:8px;">
+    <li>חכה 5 דקות נוספות - לפעמים GitHub Pages מתעדכן באיטיות</li>
+    <li>נקה את ה-cache של הדפדפן (Ctrl+Shift+R / Cmd+Shift+R)</li>
+    <li>בדוק שהקבצים הועלו בהצלחה ב-GitHub</li>
+    <li>בדוק את <a href="#troubleshooting">פרק פתרון הבעיות</a></li>
+  </ol>
+</div>
+
+<h2 id="domain"><span class="num">6</span>קניית דומיין מותאם אישית</h2>
+
+<p>הכתובת <code>your-username.github.io/surgres-pro</code> עובדת מצוין, אבל אם אתה רוצה כתובת מקצועית כמו <code>surgres-hospital.com</code> או <code>surgery.bezier.co.il</code> - תצטרך דומיין משלך.</p>
+
+<div class="callout callout-tip">
+  <strong>💡 האם זה חובה?</strong> לא! אפשר להישאר עם הכתובת של GitHub. הדומיין הוא רק עניין של מיתוג ונראות מקצועית.
+</div>
+
+<h3>אופציות לקניית דומיין:</h3>
+
+<div class="option-grid">
+  <div class="option-card recommended">
+    <h4>🌟 Cloudflare</h4>
+    <p>הזול ביותר, מאובטח, כולל CDN ו-SSL בחינם.</p>
+    <p><strong>חיסרון:</strong> ממשק באנגלית בלבד.</p>
+    <div class="price">~$8-10/שנה</div>
+    <a href="https://cloudflare.com/products/registrar" target="_blank" class="btn" style="margin-top:12px;width:100%;justify-content:center;">cloudflare.com</a>
+  </div>
+  <div class="option-card">
+    <h4>🇮🇱 Domain The Net</h4>
+    <p>חברה ישראלית, ממשק בעברית, תמיכה ישראלית.</p>
+    <p><strong>מצוין עבור:</strong> דומיינים .co.il / .org.il</p>
+    <div class="price">~₪60-80/שנה</div>
+    <a href="https://domain.co.il" target="_blank" class="btn btn-secondary" style="margin-top:12px;width:100%;justify-content:center;">domain.co.il</a>
+  </div>
+  <div class="option-card">
+    <h4>🌐 Namecheap</h4>
+    <p>פופולרי, מחירים סבירים, ממשק נוח.</p>
+    <p><strong>בונוס:</strong> Privacy Protection חינמי.</p>
+    <div class="price">~$10-13/שנה</div>
+    <a href="https://namecheap.com" target="_blank" class="btn btn-secondary" style="margin-top:12px;width:100%;justify-content:center;">namecheap.com</a>
+  </div>
+  <div class="option-card">
+    <h4>🔵 GoDaddy</h4>
+    <p>הגדול בעולם, תמיכה 24/7, אך מחירים גבוהים יותר.</p>
+    <div class="price">~$12-20/שנה</div>
+    <a href="https://godaddy.com" target="_blank" class="btn btn-secondary" style="margin-top:12px;width:100%;justify-content:center;">godaddy.com</a>
+  </div>
+</div>
+
+<h3>איזה סיומת לבחור?</h3>
+
+<table>
+  <thead>
+    <tr><th>סיומת</th><th>מחיר ממוצע</th><th>מתאים ל...</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>.com</code></td><td>$10-15/שנה</td><td>שימוש בינלאומי, הכי מוכר</td></tr>
+    <tr><td><code>.org</code></td><td>$10-15/שנה</td><td>ארגונים ומוסדות</td></tr>
+    <tr><td><code>.io</code></td><td>$30-50/שנה</td><td>פרויקטים טכנולוגיים</td></tr>
+    <tr><td><code>.co.il</code></td><td>~₪60/שנה</td><td>שימוש בישראל</td></tr>
+    <tr><td><code>.org.il</code></td><td>~₪80/שנה</td><td>ארגונים ישראליים</td></tr>
+    <tr><td><code>.health</code></td><td>$50-80/שנה</td><td>תחום בריאות (אבל יקר)</td></tr>
+  </tbody>
+</table>
+
+<h3>תהליך הקנייה (לדוגמה ב-Cloudflare):</h3>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">6.1</div>
+    <div class="step-title">חיפוש דומיין</div>
+  </div>
+  <p>גש ל-<a href="https://cloudflare.com/products/registrar" target="_blank">cloudflare.com/products/registrar</a>, חפש את הדומיין הרצוי לדוגמה: <code>surgres-pro</code>.</p>
+  <p>Cloudflare יציג רשימה של סיומות זמינות עם מחירים.</p>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">6.2</div>
+    <div class="step-title">רכישה</div>
+  </div>
+  <ul>
+    <li>בחר את הסיומת הרצויה</li>
+    <li>הוסף לעגלה</li>
+    <li>בחר משך - <strong>שנה בלבד</strong> מספיק לבדיקה</li>
+    <li>השלם את הקנייה עם כרטיס אשראי</li>
+  </ul>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">6.3</div>
+    <div class="step-title">אישור רישום</div>
+  </div>
+  <p>תקבל אימייל לאישור. <strong>חובה ללחוץ על הקישור באימייל</strong> אחרת הרישום יבוטל בתוך 15 ימים!</p>
+</div>
+
+<div class="callout callout-success">
+  <strong>✅ יש לך דומיין!</strong> עכשיו צריך לחבר אותו ל-GitHub Pages.
+</div>
+
+<h2 id="dns"><span class="num">7</span>הגדרת DNS - חיבור הדומיין ל-GitHub</h2>
+
+<p>DNS = Domain Name System. זה השלב הקריטי שבו אנחנו "מצביעים" מהדומיין שלך לשרתי GitHub.</p>
+
+<div class="callout callout-info">
+  <strong>📚 הסבר טכני קצר:</strong> כשמישהו מקליד את הדומיין שלך בדפדפן, ה-DNS אומר לדפדפן "לך לכתובת ה-IP הזו" - שזה השרת של GitHub. נגדיר 4 IP-ים של GitHub.
+</div>
+
+<h3>שלב א': הגדרת DNS אצל ספק הדומיין</h3>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">7.1</div>
+    <div class="step-title">היכנס לפאנל הניהול</div>
+  </div>
+  <p>גש לאתר שממנו קנית את הדומיין, התחבר, ומצא את ניהול ה-DNS:</p>
+  <ul>
+    <li><strong>Cloudflare:</strong> Dashboard → בחר את הדומיין → DNS</li>
+    <li><strong>Domain.co.il:</strong> ניהול דומיינים → רשומות DNS</li>
+    <li><strong>Namecheap:</strong> Domain List → Manage → Advanced DNS</li>
+    <li><strong>GoDaddy:</strong> My Products → DNS</li>
+  </ul>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">7.2</div>
+    <div class="step-title">הוסף 4 רשומות A</div>
+  </div>
+  <p>הוסף את הרשומות הבאות (זה ה-IP של שרתי GitHub Pages):</p>
+  <pre data-lang="DNS Records"><button class="copy-btn" onclick="copyCode(this)">העתק</button><code>Type: A    Name: @    Value: 185.199.108.153
+Type: A    Name: @    Value: 185.199.109.153
+Type: A    Name: @    Value: 185.199.110.153
+Type: A    Name: @    Value: 185.199.111.153</code></pre>
+  <ul>
+    <li><strong>Type:</strong> A (כתובת)</li>
+    <li><strong>Name / Host:</strong> @ (משמעות: הדומיין הראשי)</li>
+    <li><strong>Value / Points to:</strong> כתובות IP מעל</li>
+    <li><strong>TTL:</strong> Auto (או 3600)</li>
+  </ul>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">7.3</div>
+    <div class="step-title">הוסף רשומת CNAME ל-www</div>
+  </div>
+  <p>כדי שגם <code>www.your-domain.com</code> יעבוד:</p>
+  <pre data-lang="CNAME Record"><code>Type: CNAME    Name: www    Value: your-username.github.io</code></pre>
+  <div class="callout callout-warning">
+    <strong>⚠️ שים לב!</strong> ב-Value החליפו את <code>your-username</code> בשם המשתמש האמיתי שלכם ב-GitHub.
+  </div>
+</div>
+
+<h3>שלב ב': הגדרת הדומיין ב-GitHub Pages</h3>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">7.4</div>
+    <div class="step-title">חזור ל-GitHub Pages</div>
+  </div>
+  <ul>
+    <li>היכנס לריפו שלך ב-GitHub</li>
+    <li>Settings → Pages</li>
+    <li>תחת <strong>"Custom domain"</strong> הזן את הדומיין שלך: <code>surgres-pro.com</code> (ללא https:// וללא www.)</li>
+    <li>לחץ <strong>"Save"</strong></li>
+  </ul>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">7.5</div>
+    <div class="step-title">המתן לבדיקת DNS</div>
+  </div>
+  <p>GitHub יבדוק שה-DNS מוגדר נכון. זה יכול לקחת בין 10 דקות ל-24 שעות. במהלך הזמן הזה תראה:</p>
+  <pre data-lang="status"><code>DNS Check in progress...</code></pre>
+  <p>כשהבדיקה תעבור בהצלחה, תראה:</p>
+  <pre data-lang="success"><code>✅ DNS check successful</code></pre>
+</div>
+
+<div class="callout callout-info">
+  <strong>⏰ למה זה לוקח זמן?</strong> כשמשנים DNS, השינוי צריך "להתפרסם" בכל שרתי ה-DNS בעולם. זה תהליך טבעי שלוקח זמן (DNS propagation). בדרך כלל 10-60 דקות, לפעמים עד 24 שעות.
+</div>
+
+<h2 id="https"><span class="num">8</span>הפעלת HTTPS (חיבור מאובטח)</h2>
+
+<p>אחרי שה-DNS עובד, נפעיל HTTPS - חובה לאתר מקצועי, במיוחד במידע רפואי.</p>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">8.1</div>
+    <div class="step-title">סמן "Enforce HTTPS"</div>
+  </div>
+  <p>בעמוד Settings → Pages:</p>
+  <ul>
+    <li>מתחת לדומיין שהוגדר, יופיע צ'קבוקס <strong>"Enforce HTTPS"</strong></li>
+    <li>סמן אותו ✅</li>
+  </ul>
+</div>
+
+<div class="callout callout-success">
+  <strong>🔒 HTTPS פעיל!</strong> GitHub Pages יוצר באופן אוטומטי תעודת SSL חינמית דרך Let's Encrypt. עכשיו הגלישה לאתר מוצפנת ומאובטחת לחלוטין.
+</div>
+
+<div class="callout callout-warning">
+  <strong>⚠️ אם הצ'קבוקס מנוטרל:</strong> זה אומר שהתעודה עוד לא נוצרה. חכה 30-60 דקות נוספות ונסה שוב.
+</div>
+
+<h2 id="install"><span class="num">9</span>התקנת PWA במכשירים</h2>
+
+<p>עכשיו שהאתר חי וזמין, כל המתמחים יכולים להתקין אותו כאפליקציה!</p>
+
+<h3>📱 iPhone / iPad</h3>
+<ol>
+  <li>פתח את האתר ב-<strong>Safari</strong> (לא Chrome!)</li>
+  <li>לחץ על כפתור השיתוף 📤 (בתחתית המסך)</li>
+  <li>גלול ובחר <strong>"Add to Home Screen"</strong> (הוסף למסך הבית)</li>
+  <li>תן שם ולחץ <strong>"Add"</strong></li>
+  <li>האייקון מופיע במסך הבית כמו אפליקציה רגילה!</li>
+</ol>
+
+<h3>🤖 Android</h3>
+<ol>
+  <li>פתח את האתר ב-<strong>Chrome</strong></li>
+  <li>יופיע באנר אוטומטי "Install App" - לחץ עליו</li>
+  <li>או לחץ על 3 הנקודות ⋮ ובחר <strong>"Install app"</strong></li>
+  <li>האפליקציה מופיעה במגירת האפליקציות</li>
+</ol>
+
+<h3>💻 Windows / Mac (דרך Chrome/Edge)</h3>
+<ol>
+  <li>פתח את האתר ב-Chrome או Edge</li>
+  <li>בשורת הכתובת יופיע אייקון התקנה (מסך עם חץ ⬇️)</li>
+  <li>לחץ עליו ובחר <strong>"Install"</strong></li>
+  <li>האפליקציה תופיע בשורת המשימות / Dock</li>
+</ol>
+
+<h2 id="updates">🔄 עדכון האפליקציה</h2>
+
+<p>כשתרצה לעדכן את האפליקציה (לדוגמה לאחר שינוי בקוד), התהליך פשוט:</p>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">A</div>
+    <div class="step-title">דרך הדפדפן (קל)</div>
+  </div>
+  <ol>
+    <li>היכנס לריפו ב-GitHub</li>
+    <li>לחץ על הקובץ שרוצים לעדכן (לדוגמה <code>app.html</code>)</li>
+    <li>לחץ על אייקון העריכה (עיפרון ✏️)</li>
+    <li>ערוך, גלול למטה, ולחץ <strong>"Commit changes"</strong></li>
+    <li>תוך 1-2 דקות, העדכון יהיה זמין באתר</li>
+  </ol>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-number">B</div>
+    <div class="step-title">העלאת קובץ חדש לגמרי</div>
+  </div>
+  <ol>
+    <li>בריפו, לחץ <strong>"Add file"</strong> → <strong>"Upload files"</strong></li>
+    <li>גרור את הקובץ החדש (אותו שם)</li>
+    <li>סמן <strong>"Replace"</strong> אם נשאל</li>
+    <li>Commit changes</li>
+  </ol>
+</div>
+
+<div class="callout callout-tip">
+  <strong>💡 טיפ למשתמשים:</strong> אחרי עדכון, המשתמשים שכבר התקינו את ה-PWA יקבלו את הגרסה החדשה אוטומטית בכניסה הבאה (תוך כמה שניות). אם משהו לא מתעדכן, צריך לרענן את הדף עם Ctrl+Shift+R.
+</div>
+
+<h2 id="troubleshooting">🆘 פתרון בעיות נפוצות</h2>
+
+<h3>❌ "404 - Page not found"</h3>
+<ul>
+  <li>וודא שהקובץ <code>index.html</code> קיים בריפו</li>
+  <li>בדוק ב-Settings → Pages שהאתר במצב פעיל</li>
+  <li>חכה 5 דקות נוספות אחרי שינוי</li>
+</ul>
+
+<h3>❌ "DNS check unsuccessful"</h3>
+<ul>
+  <li>בדוק שהוספת את כל 4 רשומות ה-A</li>
+  <li>וודא שכתובות ה-IP נכונות (אצל GitHub: 185.199.108.153 וכו')</li>
+  <li>חכה 1-24 שעות לפרסום DNS</li>
+  <li>השתמש בכלי בדיקה כמו <a href="https://www.whatsmydns.net" target="_blank">whatsmydns.net</a></li>
+</ul>
+
+<h3>❌ ה-HTTPS לא נטען</h3>
+<ul>
+  <li>נטרל ועניין מחדש את "Enforce HTTPS"</li>
+  <li>הסר את הדומיין ב-Settings → Pages וחזור והגדר אותו</li>
+  <li>חכה 1-2 שעות לתעודת SSL להיווצר</li>
+</ul>
+
+<h3>❌ שינויים לא מופיעים</h3>
+<ul>
+  <li>נקה Cache: Ctrl+Shift+R (Windows) או Cmd+Shift+R (Mac)</li>
+  <li>בדוק ב-Actions שה-build הצליח</li>
+  <li>נסה במצב גלישה בסתר (Incognito)</li>
+</ul>
+
+<h3>❌ PWA לא נטען במובייל</h3>
+<ul>
+  <li>וודא ש-HTTPS פעיל (חובה ל-PWA!)</li>
+  <li>בדוק שהקובץ <code>manifest.json</code> קיים</li>
+  <li>ב-iOS - חייב Safari (לא Chrome)</li>
+</ul>
+
+<h2 id="summary">✅ סיכום מה עשינו</h2>
+
+<ol>
+  <li>✅ פתחנו חשבון GitHub חינמי</li>
+  <li>✅ יצרנו Repository ציבורי</li>
+  <li>✅ העלינו את כל הקבצים של SurgRes Pro</li>
+  <li>✅ הפעלנו GitHub Pages</li>
+  <li>✅ קיבלנו אתר חי באוויר תוך 10 דקות</li>
+  <li>✅ קנינו דומיין מותאם אישית (אופציונלי)</li>
+  <li>✅ הגדרנו DNS וחיברנו את הדומיין</li>
+  <li>✅ הפעלנו HTTPS אוטומטי</li>
+  <li>✅ למדנו להתקין את האפליקציה במובייל ובמחשב</li>
+  <li>✅ למדנו לעדכן את הקוד בקלות</li>
+</ol>
+
+<div class="summary">
+  <h2>🎉 מזל טוב! המערכת באוויר!</h2>
+  <p>SurgRes Pro עכשיו זמין למתמחים שלך בכתובת המותאמת אישית. שתף את הקישור, ושמור על המידע מאובטח ופרטי.</p>
+  <a href="index.html" class="btn">← חזרה לדף הבית</a>
+</div>
+
+<h3 style="margin-top: 48px;">🤝 צריך עזרה נוספת?</h3>
+<p>אם נתקעת באחד השלבים:</p>
+<ul>
+  <li>📺 חפש ב-YouTube: "GitHub Pages tutorial" - יש המון סרטונים</li>
+  <li>📖 קרא בתיעוד הרשמי: <a href="https://docs.github.com/pages" target="_blank">docs.github.com/pages</a></li>
+  <li>💬 שאל בקהילה: <a href="https://github.community" target="_blank">github.community</a></li>
+  <li>🔍 גוגל הוא חברך! חפש את שגיאה המדויקת באנגלית</li>
+</ul>
+
+  </main>
+</div>
+
+<script>
+// Smooth scroll for TOC
+document.querySelectorAll('.toc a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = link.getAttribute('href').slice(1);
+    const target = document.getElementById(id);
+    if (target) {
+      window.scrollTo({ top: target.offsetTop - 24, behavior: 'smooth' });
+    }
+  });
+});
+
+// Active TOC tracking
+const sections = document.querySelectorAll('h2[id]');
+const tocLinks = document.querySelectorAll('.toc a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 100;
+    if (window.scrollY >= top) current = section.id;
+  });
+  tocLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+  });
+});
+
+// Copy code
+function copyCode(btn) {
+  const code = btn.parentElement.querySelector('code').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ הועתק';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+</script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
